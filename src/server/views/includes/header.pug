@@ -1,0 +1,24 @@
+nav.navbar.navbar-expand-lg
+  title #{client.user.username} - #{title}
+  .container-fluid
+    a.navbar-brand(href='/owners') #{client.user.username}
+    button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+      ul.navbar-nav.me-auto.mb-2.mb-lg-0
+        li.nav-item
+          a.nav-link(aria-current='page' href='/' style="color: #f7f7f7;") Home 
+            i.fas.fa-home
+        li.nav-item
+          a.nav-link(href='/dashboard' style="color: #f7f7f7;") Dashboard 
+            i.fas.fa-chart-line
+      form.d-flex
+        - if (user && user.id) {
+          a(href='/logout')
+            button.btn.btn-outline-prem(type='button') Logout 
+              i.fas.fa-sign-out
+        - } else {
+          a(href='/login')
+            button.btn.btn-outline-prem(type='button') Login 
+              i.fas.fa-sign-in
+        - }

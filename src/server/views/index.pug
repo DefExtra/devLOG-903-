@@ -1,0 +1,30 @@
+doctype html
+include includes/axios.pug
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  include includes/header.pug
+  title #{client.user.username}
+bady
+  .container.mt-5.top-ass
+    .row.cont
+      .col
+        p.par1 Enhance your server control with us ✨.
+        p.col-cus
+          | The best services are provided here!
+          br
+          | Ready to boost your discord server with us?
+        a(href='/invite' target='_blank')
+          button.btn.btn-invite(type='button') Invite to Discord
+        - if (user && user.id) {
+          a(href='/dashboard')
+            button.btn.btn-outline-prem(type='button') Dashboard
+        - } else {
+          a(href='/login')
+            button.btn.btn-outline-prem(type='button') Login
+        - }
+      .col
+        img.float-end.logo-main.rounded-circle(src=client.user.displayAvatarURL({ dynamic: true }) alt='Logo-bot')
+  
+div(align="center" )
+  h6.text-center(style="color: #5e5ac9; width: 30%; box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;") all copy right goes to NIR0

@@ -1,0 +1,41 @@
+doctype html
+include includes/axios.pug
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  include includes/header.pug
+  title #{client.user.username}
+bady
+  section
+  .jumbotron
+    .text-center.d-flex.justify-content-center.head.text-white.display-5
+      h1(style='color: rgba(12, 217, 90, 255)')
+        | Dashboard ✨
+      br
+    - if (user && user.id) {
+      div(style='\
+      border-bottom-left-radius: 10px;\
+      border-bottom-right-radius: 10px;\
+      ')
+      - user.guilds.filter(guild=> {
+      -  const permsOnGuild = new permissions(guild.permissions_new);
+      -  if(permsOnGuild.has(permissions.FLAGS.ADMINISTRATOR)) return guild;
+      - }).sort((a, b) => { return (client.guilds.cache.get(a.id) == client.guilds.cache.get(b.id)) ? 0 : a ? -1 : 1; }).forEach(guild => {
+      - let guildICON = guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}` : 'https://th.bing.com/th?id=OIF.5p%2fpiurNILYfilJFAZZqlw&pid=ImgDet&rs=1';
+      - let buttonURL = client.guilds.cache.get(guild.id) ? `location.href='${domain}/dashboard/${guild.id}'` : `location.href='https://discord.com/api/oauth2/authorize?response_type=code&client_id=${client.user.id}&guild_id=${guild.id}&permissions=6747975000&redirect_uri=${domain + "/callback"}&scope=bot%20applications.commands'`
+      - let buttonTEXT = client.guilds.cache.get(guild.id) ? `Setting!.` : `Invite!.`
+      - let description = client.guilds.cache.get(guild.id) ? `this server can be setting now!.` : `you must invite the bot to your server for setting it!`;
+        .card-body
+          .main-bot-sec
+            img.rounded-circle.bot-img(style='display: inline-block; margin-top: 2vh' src=guildICON width='66px' height='66px')
+            .typorgraphy-prem(style='display: inline-block')
+              h4.text-white
+                | #{guild.name}
+                p.exp-time.text-dark
+                  | #{description}
+            button.btn.btn-outline.float-end.btn-invite-prem(style='padding: 10px 25px;' type='button' onclick=buttonURL) #{buttonTEXT}
+      - });
+      br
+    - } else {
+        h3(align="center") Please Login First (بدل ما اجي انيكك)
+    - }
